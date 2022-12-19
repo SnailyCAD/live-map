@@ -1,7 +1,8 @@
 import { Events } from "~/types/events";
-import { getWeaponNameFromHash } from "~/utils/getWeaponNameFromHash";
-import { getArea } from "~/utils/getArea";
-import { getZone } from "~/utils/getZone";
+import { getWeapon } from "~/utils/getWeapon";
+import { getLocation } from "~/utils/getLocation";
+import { getVehicle } from "~/utils/getVehicle";
+import { getIcon } from "~/utils/getIcon";
 
 let firstSpawn = true;
 
@@ -23,9 +24,10 @@ function emitPlayerData() {
     number,
   ];
 
-  const vehicle = getVehicle();
-  const weapon = getWeapon();
+  const vehicle = getVehicle(PlayerPedId());
+  const weapon = getWeapon(PlayerPedId());
   const location = getLocation([playerX, playerY, playerZ]);
+  const icon = getIcon(PlayerPedId());
 
   emitNet(Events.PlayerSpawned, {
     playerId: PlayerId(),
@@ -33,40 +35,7 @@ function emitPlayerData() {
     location,
     pos: { x: playerX, y: playerY, z: playerZ },
     weapon,
+    icon,
     ...vehicle,
   });
-}
-
-function getLocation(pos: [number, number, number]) {
-  const [lastStreet] = GetStreetNameAtCoord(...pos);
-  const streetName = GetStreetNameFromHashKey(lastStreet);
-  const zone = getZone(pos);
-  const area = getArea(pos);
-  const location = `${streetName}, ${zone} (${area})`;
-
-  return location;
-}
-
-function getWeapon() {
-  const weaponHash = GetSelectedPedWeapon(PlayerPedId());
-  const hash = getWeaponNameFromHash(weaponHash);
-
-  return hash;
-}
-
-function getVehicle() {
-  const vehicle = GetVehiclePedIsIn(PlayerPedId(), false);
-
-  if (vehicle === 0) {
-    return {};
-  }
-
-  const licensePlate = GetVehicleNumberPlateText(vehicle);
-  let vehicleName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)));
-
-  if (vehicleName === "NULL") {
-    vehicleName = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle));
-  }
-
-  return { licensePlate, vehicle: vehicleName };
 }
