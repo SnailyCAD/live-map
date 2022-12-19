@@ -1,3 +1,15 @@
+## 0.0.5
+
+- fix: set different playerId
+
+## 0.0.4
+
+- fix: emit only 0.5s to socket
+
+## 0.0.3
+
+- fix: allow cors from all
+
 ## 0.0.2
 
 - Support icon
