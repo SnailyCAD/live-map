@@ -37,7 +37,7 @@
     "@octokit/action": "^4.0.10",
     "archiver": "^5.3.1",
     "socket.io": "^4.5.4",
-    "undici": "^5.13.0",
+    "undici": "^5.14.0",
     "ws": "^8.11.0"
   },
   "prettier": {
