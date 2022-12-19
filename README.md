@@ -1,3 +1,8 @@
 # @snailycad/live-map
 
-TODO: add credits
+SnailyCAD Live Map integration for FiveM.
+
+## Credits
+
+- https://github.com/TGRHavoc/live_map
+- https://vespura.com/fivem/weapons/
