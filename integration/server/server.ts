@@ -12,7 +12,7 @@ const io = new Server(server, {
 
 const playerData = new Map<string, any>();
 
-onNet(Events.ResourceStarted, (name: string) => {
+onNet(Events.CFXResourceStarted, (name: string) => {
   const playerCount = GetNumPlayerIndices();
 
   if (name !== GetCurrentResourceName()) return;
@@ -20,6 +20,15 @@ onNet(Events.ResourceStarted, (name: string) => {
 
   io.sockets.emit("map-data", {
     type: LegacyMapEvents.UpdatePlayerData,
+    payload: Array.from(playerData.values()),
+  });
+});
+
+onNet(Events.CFXPlayerDropped, (name: string) => {
+  playerData.delete(name);
+
+  io.sockets.emit("map-data", {
+    type: LegacyMapEvents.RemovePlayer,
     payload: Array.from(playerData.values()),
   });
 });
