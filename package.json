@@ -1,0 +1,50 @@
+{
+  "private": true,
+  "name": "@snailycad/live-map",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": {
+    "name": "Dev-CasperTheGhost",
+    "url": "https://snailycad.caspertheghost.me"
+  },
+  "scripts": {
+    "format:quick": "pretty-quick --staged --pattern \"packages/**/*.{js,jsx,ts,tsx,md,css,json}\"",
+    "format": "prettier --write \"**/*.{js,mjs,jsx,json,ts,tsx,yml,md}\"",
+    "lint": "eslint . --ext .ts,.tsx,.mjs",
+    "test-tsc": "tsc --noEmit",
+    "prepare": "husky install",
+    "postinstall": "husky install",
+    "build": "node scripts/build-integrations.mjs",
+    "build:zip": "node scripts/zip-integrations.mjs"
+  },
+  "devDependencies": {
+    "@casper124578/eslint-config": "^5.0.1",
+    "@citizenfx/client": "^2.0.6086-1",
+    "@citizenfx/server": "^2.0.6086-1",
+    "@types/archiver": "^5.3.1",
+    "@types/node": "^18.11.17",
+    "@types/ws": "^8.5.3",
+    "@typescript-eslint/parser": "^5.45.0",
+    "esbuild": "^0.15.16",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.2",
+    "prettier": "^2.8.0",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "@octokit/action": "^4.0.10",
+    "archiver": "^5.3.1",
+    "socket.io": "^4.5.4",
+    "undici": "^5.13.0",
+    "ws": "^8.11.0"
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "all",
+    "singleQuote": false,
+    "printWidth": 100,
+    "tabWidth": 2
+  }
+}
