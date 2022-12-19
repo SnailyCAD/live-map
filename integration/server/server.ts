@@ -29,14 +29,16 @@ onNet(Events.PlayerSpawned, (data: any) => {
   data.identifiers = identifiers;
 
   playerData.set(data.name, data);
+});
 
+setInterval(() => {
   setImmediate(() => {
     io.sockets.emit("map-data", {
       type: LegacyMapEvents.UpdatePlayerData,
       payload: Array.from(playerData.values()),
     });
   });
-});
+}, 500);
 
 server.listen(port, () => {
   console.log("Socket server listening on %s", port);

@@ -3,6 +3,7 @@ import { getWeapon } from "~/utils/getWeapon";
 import { getLocation } from "~/utils/getLocation";
 import { getVehicle } from "~/utils/getVehicle";
 import { getIcon } from "~/utils/getIcon";
+import { randomUUID } from "node:crypto";
 
 let firstSpawn = true;
 
@@ -30,7 +31,7 @@ function emitPlayerData() {
   const icon = getIcon(PlayerPedId());
 
   emitNet(Events.PlayerSpawned, {
-    playerId: PlayerId(),
+    playerId: randomUUID(),
     name: GetPlayerName(PlayerId()),
     location,
     pos: { x: playerX, y: playerY, z: playerZ },
