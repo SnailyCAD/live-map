@@ -1,5 +1,7 @@
 import { Events } from "~/types/events";
 import { getWeaponNameFromHash } from "~/utils/getWeaponNameFromHash";
+import { getArea } from "~/utils/getArea";
+import { getZone } from "~/utils/getZone";
 
 let firstSpawn = true;
 
@@ -21,13 +23,9 @@ function emitPlayerData() {
     number,
   ];
 
-  const [lastStreet] = GetStreetNameAtCoord(playerX, playerY, playerZ);
-  const streetName = GetStreetNameFromHashKey(lastStreet);
-  const zone = GetNameOfZone(playerX, playerY, playerZ);
-  const area = GetHashOfMapAreaAtCoords(playerX, playerY, playerZ);
-  const location = `${streetName}, ${zone} (${area})`;
   const vehicle = getVehicle();
   const weapon = getWeapon();
+  const location = getLocation([playerX, playerY, playerZ]);
 
   emitNet(Events.PlayerSpawned, {
     playerId: PlayerId(),
@@ -37,6 +35,16 @@ function emitPlayerData() {
     weapon,
     ...vehicle,
   });
+}
+
+function getLocation(pos: [number, number, number]) {
+  const [lastStreet] = GetStreetNameAtCoord(...pos);
+  const streetName = GetStreetNameFromHashKey(lastStreet);
+  const zone = getZone(pos);
+  const area = getArea(pos);
+  const location = `${streetName}, ${zone} (${area})`;
+
+  return location;
 }
 
 function getWeapon() {

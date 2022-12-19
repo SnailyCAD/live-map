@@ -9,11 +9,6 @@ const io = new Server(server, {
   maxHttpBufferSize: 1e8,
 });
 
-io.on("connection", () => {
-  console.log("connection", "Connected to server (Connection)");
-  console.log("event", "Connected to server (Event)");
-});
-
 const playerData = new Map<string, any>();
 
 onNet(Events.ResourceStarted, (name: string) => {
