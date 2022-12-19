@@ -7,6 +7,7 @@ const server = createServer();
 const port = GetConvarInt("socket_port", 30121);
 const io = new Server(server, {
   maxHttpBufferSize: 1e8,
+  cors: { origin: "*" },
 });
 
 const playerData = new Map<string, any>();
