@@ -24,12 +24,15 @@ onNet(Events.CFXResourceStarted, (name: string) => {
   });
 });
 
-onNet(Events.CFXPlayerDropped, (name: string) => {
-  playerData.delete(name);
+onNet(Events.CFXPlayerDropped, () => {
+  // @ts-expect-error - this is supported according to the docs.
+  const playerName = GetPlayerName(source);
+
+  playerData.delete(playerName);
 
   io.sockets.emit("map-data", {
     type: LegacyMapEvents.RemovePlayer,
-    payload: Array.from(playerData.values()),
+    payload: playerName,
   });
 });
 
