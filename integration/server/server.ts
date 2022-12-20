@@ -12,7 +12,7 @@ const io = new Server(server, {
 
 const playerData = new Map<string, any>();
 
-onNet(Events.ResourceStarted, (name: string) => {
+onNet(Events.CFXResourceStarted, (name: string) => {
   const playerCount = GetNumPlayerIndices();
 
   if (name !== GetCurrentResourceName()) return;
@@ -21,6 +21,18 @@ onNet(Events.ResourceStarted, (name: string) => {
   io.sockets.emit("map-data", {
     type: LegacyMapEvents.UpdatePlayerData,
     payload: Array.from(playerData.values()),
+  });
+});
+
+onNet(Events.CFXPlayerDropped, () => {
+  // @ts-expect-error - this is supported according to the docs.
+  const playerName = GetPlayerName(source);
+
+  playerData.delete(playerName);
+
+  io.sockets.emit("map-data", {
+    type: LegacyMapEvents.RemovePlayer,
+    payload: playerName,
   });
 });
 

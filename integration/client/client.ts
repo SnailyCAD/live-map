@@ -6,7 +6,7 @@ import { getIcon } from "~/utils/getIcon";
 
 let firstSpawn = true;
 
-onNet("playerSpawned", () => {
+onNet(Events.CFXPlayerDropped, () => {
   if (firstSpawn) {
     emitPlayerData();
     firstSpawn = false;
