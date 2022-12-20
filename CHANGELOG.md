@@ -1,3 +1,7 @@
+## 0.0.6
+
+- Support for `playerDropped` event
+
 ## 0.0.5
 
 - fix: set different playerId

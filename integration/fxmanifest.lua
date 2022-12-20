@@ -3,7 +3,7 @@ game "gta5"
 
 author "Dev-CasperTheGhost"
 description "SnailyCAD Live Map integration for FiveM."
-version "0.0.5"
+version "0.0.6"
 
 client_scripts {"client/client.js"}
 server_scripts {"server/server.js"}
