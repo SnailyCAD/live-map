@@ -1,4 +1,4 @@
-# @snailycad/live-map
+# [@snailycad/live-map](https://cad-docs.caspertheghost.me/docs/fivem-integrations/live-map)
 
 SnailyCAD Live Map integration for FiveM.
 
