@@ -1,3 +1,11 @@
+## 0.0.8
+
+- Bump depencencies
+
+## 0.0.7
+
+- Support for `hasSirenEnabled`
+
 ## 0.0.6
 
 - Support for `playerDropped` event
