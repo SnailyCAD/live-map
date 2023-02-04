@@ -5,7 +5,7 @@
   "license": "MIT",
   "author": {
     "name": "Dev-CasperTheGhost",
-    "url": "https://snailycad.caspertheghost.me"
+    "url": "https://snailycad.org"
   },
   "scripts": {
     "format:quick": "pretty-quick --staged --pattern \"packages/**/*.{js,jsx,ts,tsx,md,css,json}\"",
