@@ -18,7 +18,7 @@
     "build:zip": "node scripts/zip-integrations.mjs"
   },
   "devDependencies": {
-    "@casper124578/eslint-config": "^5.0.1",
+    "@casper124578/eslint-config": "^6.0.0",
     "@citizenfx/client": "^2.0.6247-1",
     "@citizenfx/server": "^2.0.6247-1",
     "@types/archiver": "^5.3.1",
