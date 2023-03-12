@@ -1,3 +1,11 @@
+## 0.0.10
+
+- Release `0.0.9`
+
+## 0.0.9
+
+- Bump depencencies
+
 ## 0.0.8
 
 - Bump depencencies
