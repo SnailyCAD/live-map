@@ -1,3 +1,8 @@
+## 0.0.11
+
+- Bump depencencies
+- Use `pnpm`
+
 ## 0.0.10
 
 - Release `0.0.9`
