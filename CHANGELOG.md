@@ -1,3 +1,7 @@
+## 0.1.1
+
+- Proper versioning
+
 ## 0.1.0
 
 - London Studios SmartSigns support.

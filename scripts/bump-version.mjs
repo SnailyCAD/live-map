@@ -4,7 +4,7 @@ import * as path from "node:path";
 const BASE_PATH = path.resolve(process.cwd(), "integration");
 
 const [, , version] = process.argv;
-const FX_VERSION_REGEX = /version "[0-9].[0-9].[0-9]"/;
+const FX_VERSION_REGEX = /version "[0-9].[0-9]+.[0-9]+"/;
 
 if (!version) {
   throw new Error("Must specify a new version.");
