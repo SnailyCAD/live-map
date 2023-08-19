@@ -1,3 +1,8 @@
+## 0.1.0
+
+- London Studios SmartSigns support.
+- Update depencencies.
+
 ## 0.0.11
 
 - Bump depencencies

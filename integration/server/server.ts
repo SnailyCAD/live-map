@@ -79,14 +79,6 @@ setInterval(() => {
   });
 }, 500);
 
-setInterval(() => {
-  const smartSigns = exports.SmartSigns["SmartSigns:GetSigns"]?.();
-
-  setImmediate(() => {
-    io.sockets.emit("sna-live-map:smart-signs", { smartSigns });
-  });
-}, 60_000); // update every minute
-
 server.listen(port, () => {
   console.log("Socket server listening on %s", port);
 });
