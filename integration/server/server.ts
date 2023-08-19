@@ -12,6 +12,18 @@ const io = new Server(server, {
 
 const playerData = new Map<string, any>();
 
+io.on("connection", (socket) => {
+  // todo: logging
+
+  socket.on("sna-live-map:update-smart-sign", (data) => {
+    emit("SmartSigns:updateSign", data.id, [
+      data.defaultText.firstLine,
+      data.defaultText.secondLine,
+      data.defaultText.thirdLine,
+    ]);
+  });
+});
+
 onNet(Events.CFXResourceStarted, (name: string) => {
   const playerCount = GetNumPlayerIndices();
 
@@ -27,9 +39,11 @@ onNet(Events.CFXResourceStarted, (name: string) => {
 onNet(Events.CFXPlayerDropped, () => {
   // @ts-expect-error - this is supported according to the docs.
   const playerName = GetPlayerName(source);
+  const smartSigns = exports.SmartSigns["SmartSigns:GetSigns"]?.();
 
   playerData.delete(playerName);
 
+  io.sockets.emit("sna-live-map:smart-signs", { smartSigns });
   io.sockets.emit("map-data", {
     type: LegacyMapEvents.RemovePlayer,
     payload: playerName,
