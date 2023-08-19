@@ -12,6 +12,31 @@ const io = new Server(server, {
 
 const playerData = new Map<string, any>();
 
+io.on("connection", (socket) => {
+  const smartSigns = exports.SmartSigns["SmartSigns:GetSigns"]?.();
+  io.sockets.emit("sna-live-map:smart-signs", { smartSigns });
+
+  socket.on("sna-live-map:update-smart-sign", (data) => {
+    console.log(
+      "[sna-live-map]",
+      "Request received to update smart sign",
+      data.id,
+      data.defaultText,
+    );
+
+    emit("SmartSigns:updateSign", data.id, [
+      data.defaultText.firstLine,
+      data.defaultText.secondLine,
+      data.defaultText.thirdLine,
+    ]);
+  });
+});
+
+on("SmartSigns:updateSignExternal", () => {
+  const smartSigns = exports.SmartSigns["SmartSigns:GetSigns"]?.();
+  io.sockets.emit("sna-live-map:smart-signs", { smartSigns });
+});
+
 onNet(Events.CFXResourceStarted, (name: string) => {
   const playerCount = GetNumPlayerIndices();
 
@@ -22,12 +47,14 @@ onNet(Events.CFXResourceStarted, (name: string) => {
     type: LegacyMapEvents.UpdatePlayerData,
     payload: Array.from(playerData.values()),
   });
+
+  const smartSigns = exports.SmartSigns["SmartSigns:GetSigns"]?.();
+  io.sockets.emit("sna-live-map:smart-signs", { smartSigns });
 });
 
 onNet(Events.CFXPlayerDropped, () => {
   // @ts-expect-error - this is supported according to the docs.
   const playerName = GetPlayerName(source);
-
   playerData.delete(playerName);
 
   io.sockets.emit("map-data", {
