@@ -1,3 +1,7 @@
+## 0.2.0
+
+- London Studios SmartMotorways support.
+
 ## 0.1.1
 
 - Proper versioning

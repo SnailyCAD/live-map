@@ -19,16 +19,32 @@ io.on("connection", (socket) => {
   socket.on("sna-live-map:update-smart-sign", (data) => {
     console.log(
       "[sna-live-map]",
-      "Request received to update smart sign",
+      "Request received to update Smart Motorway sign",
       data.id,
       data.defaultText,
     );
 
-    emit("SmartSigns:updateSign", data.id, [
+    emit("smartmotorways:updateSign", data.id, [
       data.defaultText.firstLine,
       data.defaultText.secondLine,
       data.defaultText.thirdLine,
     ]);
+  });
+
+  const smartMotorwaySigns = exports.SmartMotorways["getSigns"]?.();
+  io.sockets.emit("sna-live-map:smart-motorways-signs", { smartMotorwaySigns });
+
+  socket.on("sna-live-map:update-smart-motorway-sign", (data) => {
+    console.log(
+      "[sna-live-map]",
+      "Request received to update Smart Motorway sign",
+      data.id,
+      data.defaultText,
+    );
+
+    console.log({ data });
+
+    emit("smartmotorways:updateSign", data.id, data.speeds);
   });
 });
 
@@ -36,6 +52,8 @@ on("SmartSigns:updateSignExternal", () => {
   const smartSigns = exports.SmartSigns["SmartSigns:GetSigns"]?.();
   io.sockets.emit("sna-live-map:smart-signs", { smartSigns });
 });
+
+// todo: sync
 
 onNet(Events.CFXResourceStarted, (name: string) => {
   const playerCount = GetNumPlayerIndices();
@@ -50,6 +68,9 @@ onNet(Events.CFXResourceStarted, (name: string) => {
 
   const smartSigns = exports.SmartSigns["SmartSigns:GetSigns"]?.();
   io.sockets.emit("sna-live-map:smart-signs", { smartSigns });
+
+  const smartMotorwaySigns = exports.SmartMotorways["getSigns"]?.();
+  io.sockets.emit("sna-live-map:smart-motorways-signs", { smartMotorwaySigns });
 });
 
 onNet(Events.CFXPlayerDropped, () => {
