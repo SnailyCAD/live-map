@@ -7,6 +7,8 @@ export enum Events {
   AddPlayerData = "sna-live-map-add-player-data",
   UpdatePlayerData = "sna-live-map-update-player-data",
   RemovePlayer = "sna-live-map-remove-player",
+
+  SyncSmartMotorwaysSigns = "sna-live-map-sign-smart-motorways",
 }
 
 export enum LegacyMapEvents {
