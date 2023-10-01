@@ -39,3 +39,7 @@ function emitPlayerData() {
     ...vehicle,
   });
 }
+
+onNet("smartmotorways:syncSignsClient", (signId: number) => {
+  emitNet(Events.SyncSmartMotorwaysSigns, signId);
+});
