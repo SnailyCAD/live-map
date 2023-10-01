@@ -1,5 +1,6 @@
 ## 0.2.0
 
+- Bump depencencies
 - London Studios SmartMotorways support.
 
 ## 0.1.1
