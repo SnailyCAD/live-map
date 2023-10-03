@@ -1,3 +1,7 @@
+## 0.2.1
+
+- fix: use API method (#39) (@jxckUK)
+
 ## 0.2.0
 
 - Bump depencencies
