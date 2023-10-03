@@ -24,7 +24,7 @@ io.on("connection", (socket) => {
       data.defaultText,
     );
 
-    emit("SmartSigns:updateSign", data.id, [
+    emit("SmartSigns:apiUpdateSign", data.id, [
       data.defaultText.firstLine,
       data.defaultText.secondLine,
       data.defaultText.thirdLine,
@@ -37,7 +37,7 @@ io.on("connection", (socket) => {
   socket.on("sna-live-map:update-smart-motorway-sign", (data) => {
     console.log("[sna-live-map]", "Request received to update Smart Motorway sign", data.id);
 
-    emit("smartmotorways:updateSign", data.id, data.speeds);
+    emit("SmartMotorways:apiUpdateSign", data.id, data.speeds);
   });
 });
 
