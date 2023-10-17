@@ -1,3 +1,7 @@
+## 0.2.2
+
+- fix: make London Studios depencencies optional.
+
 ## 0.2.1
 
 - fix: use API method (#39) (@jxckUK)

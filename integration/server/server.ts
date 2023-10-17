@@ -12,8 +12,34 @@ const io = new Server(server, {
 
 const playerData = new Map<string, any>();
 
+function getSmartSigns() {
+  try {
+    return exports.SmartSigns["SmartSigns:GetSigns"]?.();
+  } catch {
+    console.log(
+      "[sna-live-map][DEBUG]",
+      "Could not load SmartSigns signs. If you're not using SmartSigns, ignore this message.",
+    );
+
+    return [];
+  }
+}
+
+function getSmartMotorwaySigns() {
+  try {
+    return exports.SmartMotorways["getSigns"]?.();
+  } catch {
+    console.log(
+      "[sna-live-map][DEBUG]",
+      "Could not load SmartMotorway signs. If you're not using SmartMotorways, ignore this message.",
+    );
+
+    return [];
+  }
+}
+
 io.on("connection", (socket) => {
-  const smartSigns = exports.SmartSigns["SmartSigns:GetSigns"]?.();
+  const smartSigns = getSmartSigns();
   io.sockets.emit("sna-live-map:smart-signs", { smartSigns });
 
   socket.on("sna-live-map:update-smart-sign", (data) => {
@@ -31,7 +57,7 @@ io.on("connection", (socket) => {
     ]);
   });
 
-  const smartMotorwaySigns = exports.SmartMotorways["getSigns"]?.();
+  const smartMotorwaySigns = getSmartMotorwaySigns();
   io.sockets.emit("sna-live-map:smart-motorways-signs", { smartMotorwaySigns });
 
   socket.on("sna-live-map:update-smart-motorway-sign", (data) => {
@@ -42,12 +68,12 @@ io.on("connection", (socket) => {
 });
 
 on("SmartSigns:updateSignExternal", () => {
-  const smartSigns = exports.SmartSigns["SmartSigns:GetSigns"]?.();
+  const smartSigns = getSmartSigns();
   io.sockets.emit("sna-live-map:smart-signs", { smartSigns });
 });
 
 onNet(Events.SyncSmartMotorwaysSigns, () => {
-  const smartMotorwaySigns = exports.SmartMotorways["getSigns"]?.();
+  const smartMotorwaySigns = getSmartMotorwaySigns();
   io.sockets.emit("sna-live-map:smart-motorways-signs", { smartMotorwaySigns });
 });
 
@@ -62,10 +88,10 @@ onNet(Events.CFXResourceStarted, (name: string) => {
     payload: Array.from(playerData.values()),
   });
 
-  const smartSigns = exports.SmartSigns["SmartSigns:GetSigns"]?.();
+  const smartSigns = getSmartSigns();
   io.sockets.emit("sna-live-map:smart-signs", { smartSigns });
 
-  const smartMotorwaySigns = exports.SmartMotorways["getSigns"]?.();
+  const smartMotorwaySigns = getSmartMotorwaySigns();
   io.sockets.emit("sna-live-map:smart-motorways-signs", { smartMotorwaySigns });
 });
 
